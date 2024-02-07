@@ -1,0 +1,12 @@
+<div class="top-bar">
+    <a href="{{ url_for('homepage') }}"><b>AnimeFront</b></a>
+    {% if not user %}
+        <a href="{{ url_for('login') }}">Login</a>
+        <a href="{{ url_for('signup') }}">Sign Up</a>
+    {% else %}
+        {% if is_admin %}
+            <a href="{{ url_for('add_anime') }}">Add Anime</a>
+        {% endif %}
+        <a href="{{ url_for('logout') }}">Logout</a>
+    {% endif %}
+</div>

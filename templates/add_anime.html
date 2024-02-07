@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Anime</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    {% include 'topbar.html' %}
+
+<div class="form-container">
+    <h1>Add New Anime</h1>
+    <form method="post" action="{{ url_for('add_anime') }}">
+    <div class="form-group">
+        <label for="title">Title:</label>
+        <input type="text" id="title" name="title" required>
+
+        <label for="image_link">Image Link:</label>
+        <input  type="text" id="image_link" name="image_link" required>
+
+        <label for="desc">Description:</label>
+        <textarea id="desc" name="desc" required></textarea>
+
+        <label for="studio">Studio:</label>
+        <input type="text" id="studio" name="studio" required>
+
+        <label for="release_year">Release Year:</label>
+        <input type="number" id="release_year" name="release_year" required>
+
+        <label for="characters">Characters:</label>
+        <input type="text" id="characters" name="characters" required>
+
+        <button type="submit">Add Anime</button>
+    </div>
+    </form>
+</div>
+
+</body>
+</html>
