@@ -21,7 +21,12 @@
             <h2>Synopsis</h2>
             <p>{{ anime.desc }}</p>
             <h3>User Reviews</h3>
-            <div class="user-reviews">                
+            <div class="user-reviews">      
+                {% if not anime.user_reviews %}
+                <div class="single-review">
+                <h4>No reviews yet!</h4>
+                </div>
+                {% endif %}          
                 {% for review in anime.user_reviews %}
                 <div class="single-review">
                     <h4>Review from {{ review.user.username }}:</h4>
