@@ -5,13 +5,27 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Homepage</title>
     <link href="{{ url_for('static', filename='style.css') }}" rel="stylesheet">
+    <script>
+    function showTooltip(event, anime_name) {
+        const tooltip = document.getElementById('anime_name');
+        tooltip.innerHTML = anime_name;
+    }
+    
+    function hideTooltip() {
+        const tooltip = document.getElementById('anime_name');
+        tooltip.innerHTML = '';
+    }
+    </script>
 </head>
 <body>
 
-    {% include 'topbar.html' %}    
+    {% include 'topbar.html' %}
+
 <div class="anime-container">
     {% for anime in anime_list %}
-    <a class="image-link" href="{{ url_for('anime_details', anime_id=anime.id) }}" style="background-image: url('{{ anime.image_link }}');"></a>
+    <div onmousemove="showTooltip(event, '{{ anime.title }}')" onmouseout="hideTooltip()">
+        <a class="image-link" href="{{ url_for('anime_details', anime_id=anime.id) }}" style="background-image: url('{{ anime.image_link }}');"></a>
+    </div>
     {% endfor %}
 </div>
 
