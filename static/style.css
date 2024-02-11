@@ -240,8 +240,13 @@ textarea, select {
 }
 
 .anime-details {
-    display: flex;
-    max-width: 1080px;
+    padding: 20px;
+    padding-top: 60px;
+    margin-top: auto;
+    position: relative;
+    display: inline-flex;
+    flex-wrap: wrap;
+    max-width: 1200px;
     width: 100%;
 }
 
@@ -250,7 +255,7 @@ textarea, select {
     padding: 20px;
 }
 .anime-details-left h1 {
-    width: 350px;
+    width: 400px;
 }
 
 .anime-details-right {
