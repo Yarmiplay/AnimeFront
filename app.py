@@ -3,6 +3,7 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate, migrate
 from sqlalchemy import CheckConstraint
 from sqlalchemy.exc import IntegrityError
+from sqlalchemy.orm import relationship
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///site.db'
 app.secret_key = 'benny_yarmolovich'
@@ -29,14 +30,27 @@ class Anime(db.Model):
     release_year = db.Column(db.Integer, unique=False, nullable=False)
     characters = db.Column(db.String, unique=False, nullable=False)
 
+    user_reviews = relationship('UserReview', backref='anime', lazy=True)
+
     def __str__(self):
         return f"Title: {self.title}, ID: {self.id}"
+    
+    @property
+    def average_stars(self):
+        if self.user_reviews:
+            total_stars = sum(review.stars for review in self.user_reviews) if self.user_reviews else 0
+            total_reviews = len(self.user_reviews) if self.user_reviews else 1  # Avoid division by zero
+            return total_stars / total_reviews        
+        else:
+            return "No reviews yet"
 
 class UserReview(db.Model):
     anime_id = db.Column(db.Integer, db.ForeignKey('anime.id'), primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), primary_key=True)
     review = db.Column(db.String, nullable=False)
     stars = db.Column(db.Integer, nullable=False)
+
+    user = db.relationship('User', backref='reviews')
 
     __table_args__ = (
         CheckConstraint('stars >= 1 AND stars <= 10', name='check_stars_range'),
@@ -61,6 +75,7 @@ def login():
         if user:
             # Authentication successful
             session['user'] = user.username
+            session['user_id'] = user.id
             session['is_admin'] = user.is_admin
             return redirect(url_for('homepage'))
         else:
@@ -103,12 +118,51 @@ def logout():
 @app.route('/anime/<int:anime_id>')
 def anime_details(anime_id):
     user = session.get('user')
+    user_id = session.get('user_id')
     is_admin = session.get('is_admin')
+    existing_review = UserReview.query.filter_by(anime_id=anime_id, user_id=user_id).first()
     anime = Anime.query.get(anime_id)
     if anime:
-        return render_template('anime_details.html', user=user, is_admin=is_admin, anime=anime)
+        return render_template('anime_details.html', user=user, is_admin=is_admin, anime=anime, existing_review=existing_review)
     else:
-        abort(404)
+        abort(404) # Anime id not found
+
+@app.route('/review/<int:anime_id>', methods=["POST", "GET"])
+def review(anime_id):
+    user = session.get('user')
+    user_id = session.get('user_id')
+    is_admin = session.get('is_admin')
+    anime = Anime.query.get(anime_id)
+    if request.method == "POST":
+        if not user:
+            abort(403)
+        if not anime:
+            abort(404)
+
+        review_text = request.form.get('review_text')
+        star_rating = int(request.form.get('star_rating'))
+        if star_rating > 10 or star_rating < 1:
+            abort(400)
+
+        existing_review = UserReview.query.filter_by(anime_id=anime_id, user_id=user_id).first()
+        if existing_review:
+            # Update existing review
+            existing_review.review = review_text
+            existing_review.stars = star_rating
+        else:
+            # Create a new review
+            new_review = UserReview(anime_id=anime_id, user_id=user_id, review=review_text, stars=star_rating)
+            db.session.add(new_review)
+        db.session.commit()
+        return redirect(url_for('anime_details', anime_id=anime_id))
+    else:
+        if anime and user:
+            existing_review = UserReview.query.filter_by(anime_id=anime_id, user_id=user_id).first()
+            return render_template('review_anime.html', user=user, is_admin=is_admin, anime=anime, existing_review=existing_review)
+        elif not user:
+            abort(403)
+        else:
+            abort(404)
 
 @app.route('/add_anime', methods=['GET', 'POST'])
 def add_anime():
@@ -154,6 +208,12 @@ def forbidden_error(error):
     user = session.get('user')
     is_admin = session.get('is_admin')
     return render_template('403.html', user=user, is_admin=is_admin), 403
+
+@app.errorhandler(400)
+def bad_request(error):
+    user = session.get('user')
+    is_admin = session.get('is_admin')
+    return render_template('400.html', user=user, is_admin=is_admin), 400
 
 if __name__ == "__main__":
     app.run(debug=True)

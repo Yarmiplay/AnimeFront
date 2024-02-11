@@ -34,6 +34,7 @@ button, input[type="button"], input[type="submit"], input[type="reset"] {
     padding: 10px 15px;
     border: none;
     cursor: pointer;
+    border-radius: 4px;
 }
 
 /* Images */
@@ -44,6 +45,20 @@ img {
 /* Inputs and Labels text color*/
 input, textarea, select, label {
     color: #fff;
+}
+
+label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+textarea, select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-sizing: border-box;
 }
 
 .login-container {
@@ -188,6 +203,7 @@ input, textarea, select, label {
     text-align: center;
     padding: 14px 16px;
     text-decoration: none;
+    margin-bottom: 0px;
 }
 
 .anime-container {
@@ -221,6 +237,145 @@ input, textarea, select, label {
 .anime-container a.image-link {
     display: inline-block;
     line-height: 0;
+}
+
+.anime-details {
+    display: flex;
+    max-width: 1080px;
+    width: 100%;
+}
+
+.anime-details-left {
+    flex: 1;
+    padding: 20px;
+}
+.anime-details-left h1 {
+    width: 350px;
+}
+
+.anime-details-right {
+    flex: 1;
+    padding: 20px;
+}
+
+.anime-details-right p {
+    width: 600px;
+}
+
+.anime-details img {
+    max-width: 100%;
+    height: auto;
+}
+
+.user-reviews {
+    margin-top: 20px;
+}
+
+.add-review-button {
+    margin-top: 10px;
+}
+
+.review-form {
+    display: flex;
+    justify-content: space-around;
+    align-items: flex-start;
+    margin-top: 20px;
+}
+
+.review-form-left {
+    text-align: center;
+    width: 40%;
+}
+
+.review-form-left img {
+    max-width: 100%;
+    height: auto;
+    margin-top: 10px;
+}
+
+.review-form-right {
+    width: 50%;
+}
+
+.textarea-container {
+    margin-top: 20px;
+}
+
+.star-rating-container {
+    margin-top: 20px;
+}
+
+.add-review-button {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #3498db;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.add-review-button:hover {
+    background-color: #2980b9;
+}
+
+.container {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #333;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+}
+
+.review-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.star-rating {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.star-icon {
+    font-size: 24px;
+    margin-right: 5px;
+    color: #ffd700; /* Star color */
+}
+
+.star-rating input[type="number"] {
+    width: 40px;
+    text-align: center;
+    font-size: 16px;
+    padding: 5px;
+}
+
+.submit-button {
+    background-color: #3498db;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.submit-button:hover {
+    background-color: #2980b9;
+}
+
+.single-review {
+    background-color: #333;
+    padding: 2px 2px 2px 20px;
+    border-radius: 5px;
 }
 
 /* <link href="{{ url_for('static', filename='style.css') }}" rel="stylesheet"> */

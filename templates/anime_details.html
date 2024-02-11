@@ -8,13 +8,42 @@
 </head>
 <body>
     {% include 'topbar.html' %}
-<div class="anime-details">
-    <h1>{{ anime.title }}</h1>
-    <img src="{{ anime.image_link }}" alt="{{ anime.title }}">
-    <p>{{ anime.desc }}</p>
-    <p>Studio: {{ anime.studio }}</p>
-    <p>Release Year: {{ anime.release_year }}</p>
-    <p>Characters: {{ anime.characters }}</p>
+    <div class="anime-details">
+        <div class="anime-details-left">
+            <h1>{{ anime.title }}</h1>
+            <img src="{{ anime.image_link }}" alt="{{ anime.title }}">
+            <p>Studio: <b>{{ anime.studio }}</b></p>
+            <p>Release Year: <b>{{ anime.release_year }}</b></p>
+            <p>Characters: <b>{{ anime.characters }}</b></p>
+            <p>Average Rating: <b>{{ anime.average_stars }} stars</b></p>
+        </div>
+        <div class="anime-details-right">
+            <h2>Synopsis</h2>
+            <p>{{ anime.desc }}</p>
+            <h3>User Reviews</h3>
+            <div class="user-reviews">                
+                {% for review in anime.user_reviews %}
+                <div class="single-review">
+                    <h4>Review from {{ review.user.username }}:</h4>
+                    <p>{{ review.review | safe }}</p>
+                    <h4>{{ review.user.username }} gave it {{ review.stars }} stars.</h4>
+                </div>
+                <br>      
+                {% endfor %}
+                {% if user %}
+                <a href="{{ url_for('review', anime_id=anime.id) }}" class="add-review-button">
+                    {% if existing_review %}
+                    Edit Review
+                    {% else %}
+                    Add Review
+                    {% endif %}
+                </a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    
 <br>
 <br>
 </div>
