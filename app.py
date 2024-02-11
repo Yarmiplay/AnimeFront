@@ -38,11 +38,12 @@ class Anime(db.Model):
     @property
     def average_stars(self):
         if self.user_reviews:
-            total_stars = sum(review.stars for review in self.user_reviews) if self.user_reviews else 0
-            total_reviews = len(self.user_reviews) if self.user_reviews else 1  # Avoid division by zero
-            return total_stars / total_reviews        
+            total_stars = sum(review.stars for review in self.user_reviews)
+            total_reviews = len(self.user_reviews)
+            average_rating = total_stars / total_reviews if total_reviews else 0.0
+            return round(average_rating, 2)
         else:
-            return "No reviews yet"
+            return "0"
 
 class UserReview(db.Model):
     anime_id = db.Column(db.Integer, db.ForeignKey('anime.id'), primary_key=True)

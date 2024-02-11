@@ -15,7 +15,7 @@
             <p>Studio: <b>{{ anime.studio }}</b></p>
             <p>Release Year: <b>{{ anime.release_year }}</b></p>
             <p>Characters: <b>{{ anime.characters }}</b></p>
-            <p>Average Rating: <b>{{ anime.average_stars }}</b></p>
+            <p>Average Rating: <b>{{ anime.average_stars if anime.average_stars != "0" else 'No reviews yet' }}{{ ' stars' if anime.average_stars != "0"}}</b></p>
         </div>
         <div class="anime-details-right">
             <h2>Synopsis</h2>
