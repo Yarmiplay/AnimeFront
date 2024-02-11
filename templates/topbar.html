@@ -1,4 +1,9 @@
 <div class="top-bar">
+    <script>
+        function submitForm() {
+            document.getElementById('searchForm').submit();
+        }
+    </script>
     <a href="{{ url_for('homepage') }}"><b>AnimeFront</b></a>
     {% if not user %}
         <a href="{{ url_for('login') }}">Login</a>
@@ -10,4 +15,8 @@
         <a href="{{ url_for('logout') }}">Logout</a>
         <label>Welcome, {{ user }}</label>
     {% endif %}
+    <form action="{{ url_for('homepage') }}" method="get" class="search-form" id="searchForm">
+        <input type="text" id="search" name="search" placeholder="Search...">
+        <div class="search-icon" onclick="submitForm()">&#128269;</div>
+    </form>
 </div>

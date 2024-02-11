@@ -58,11 +58,18 @@ class UserReview(db.Model):
     )
 
 
-@app.route("/")
+@app.route("/", methods=["POST", "GET"])
 def homepage():
     user = session.get('user')
     is_admin = session.get('is_admin')
     anime_list = Anime.query.all()
+
+    if search_query := request.args.get('search'):
+        # Filter anime by name containing the search query
+        anime_list = [anime for anime in Anime.query.all() if search_query.lower() in anime.title.lower()]
+        if not anime_list:
+            abort(404)
+
     return render_template('homepage.html', user=user, is_admin=is_admin, anime_list=anime_list)
 
 @app.route("/login/", methods=["POST", "GET"])

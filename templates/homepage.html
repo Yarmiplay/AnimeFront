@@ -10,12 +10,9 @@
 
     {% include 'topbar.html' %}    
 <div class="anime-container">
-{% for anime in anime_list %}
-        <a class="image-link" href="{{ url_for('anime_details', anime_id=anime.id) }}" style="background-image: url('{{ anime.image_link }}');"></a>
-    {% if anime.id % 6 == 0 %}
-    <br>
-    {% endif %}
-{% endfor %}
+    {% for anime in anime_list %}
+    <a class="image-link" href="{{ url_for('anime_details', anime_id=anime.id) }}" style="background-image: url('{{ anime.image_link }}');"></a>
+    {% endfor %}
 </div>
 
 </body>

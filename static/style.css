@@ -206,11 +206,51 @@ textarea, select {
     margin-bottom: 0px;
 }
 
+.top-bar input {
+    background-color: #1b1b1b;
+    float: left;
+    display: block;
+    color: #f2f2f2;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    margin-bottom: 0px;
+    margin-top: 10px;
+    border-radius: 8px;
+    float: right
+}
+
+.search-form {
+    float: right;
+    margin-bottom: 0px;
+    display: inline-flex;
+    margin-right: 110px; /* Adjust as needed for spacing */
+}
+
+#search {
+    float: right;
+    margin-bottom: 0px;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+#search:focus {
+    border-color: #4CAF50; /* Highlight border color when focused */
+}
+
+.search-icon {
+    margin-top: 10px;
+    margin-left: 5px;
+    font-size: 20px;
+    cursor: pointer;
+}
+
 .anime-container {
     align-content: center;
     padding: 20px;
     padding-top: 60px;
-    margin-top: auto;
+    margin: auto;
     position: relative;
     display: inline-flex;
     flex-wrap: wrap;
