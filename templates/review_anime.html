@@ -8,6 +8,8 @@
 </head>
 <body>
     {% include 'topbar.html' %}
+    <script>document.getElementById('anime_name').innerHTML = '{{ anime.title }}';</script>
+
     <div class="anime-details">
         <div class="anime-details-left">
             <h1>{{ anime.title }}</h1>
