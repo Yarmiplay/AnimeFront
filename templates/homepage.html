@@ -6,7 +6,7 @@
     <title>Homepage</title>
     <link href="{{ url_for('static', filename='style.css') }}" rel="stylesheet">
     <script>
-    function showTooltip(event, anime_name) {
+    function showTooltip(anime_name) {
         const tooltip = document.getElementById('anime_name');
         tooltip.innerHTML = anime_name;
     }
@@ -24,7 +24,7 @@
 <div class="anime-container">
     {% for anime in anime_list %}
     {% set anime_title = anime.title | replace("'", "&#39;") %}
-    <div onmousemove="showTooltip(event, '{{ anime_title }}')" onmouseout="hideTooltip()">
+    <div onmousemove="showTooltip('{{ anime_title }}')" onmouseout="hideTooltip()">
         <a class="image-link" href="{{ url_for('anime_details', anime_id=anime.id) }}" style="background-image: url('{{ anime.image_link }}');"></a>
     </div>
     {% endfor %}
