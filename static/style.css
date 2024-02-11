@@ -353,7 +353,7 @@ textarea, select {
 .add-review-button {
     display: inline-block;
     padding: 10px 20px;
-    background-color: #3498db;
+    background-color: #007bff;
     color: #fff;
     text-decoration: none;
     border-radius: 5px;
@@ -361,7 +361,7 @@ textarea, select {
 }
 
 .add-review-button:hover {
-    background-color: #2980b9;
+    background-color: #0056b3;
 }
 
 .container {
