@@ -23,7 +23,8 @@
 
 <div class="anime-container">
     {% for anime in anime_list %}
-    <div onmousemove="showTooltip(event, '{{ anime.title | replace("'", "&#39;") }}')" onmouseout="hideTooltip()">
+    {% set anime_title = anime.title | replace("'", "&#39;") %}
+    <div onmousemove="showTooltip(event, '{{ anime_title }}')" onmouseout="hideTooltip()">
         <a class="image-link" href="{{ url_for('anime_details', anime_id=anime.id) }}" style="background-image: url('{{ anime.image_link }}');"></a>
     </div>
     {% endfor %}
