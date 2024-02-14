@@ -3,15 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>400 Bad request</title>
+    <title>{{ error_code }}</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
     {% include 'topbar.html' %}
 
 <div class="error-container">
-    <h1>400 - Bad request</h1>
-    <p>Sorry, something about that request caused an issue.</p>
+    <h1>{{ error_code }}</h1>
+    <p>{{ error_message }}</p>
     <p>Go back to the <a href="{{ url_for('homepage') }}">homepage</a>.</p>
 </div>
 

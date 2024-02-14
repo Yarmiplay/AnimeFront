@@ -209,19 +209,25 @@ def add_anime():
 def page_not_found(error):
     user = session.get('user')
     is_admin = session.get('is_admin')
-    return render_template('404.html', user=user, is_admin=is_admin), 404
+    error_code = '404 Not Found'
+    error_message = 'The requested anime could not be found.'
+    return render_template('error.html', user=user, is_admin=is_admin, error_code=error_code, error_message=error_message), 404
 
 @app.errorhandler(403)
 def forbidden_error(error):
     user = session.get('user')
     is_admin = session.get('is_admin')
-    return render_template('403.html', user=user, is_admin=is_admin), 403
+    error_code = '403 Forbidden'
+    error_message = "Sorry, you don't have permission to access this page."
+    return render_template('error.html', user=user, is_admin=is_admin, error_code=error_code, error_message=error_message), 403
 
 @app.errorhandler(400)
 def bad_request(error):
     user = session.get('user')
     is_admin = session.get('is_admin')
-    return render_template('400.html', user=user, is_admin=is_admin), 400
+    error_code = '400 Bad request'
+    error_message = "Sorry, something about that request caused an issue."
+    return render_template('error.html', user=user, is_admin=is_admin, error_code=error_code, error_message=error_message), 400
 
 if __name__ == "__main__":
     app.run(debug=True)
