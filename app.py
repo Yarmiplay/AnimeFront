@@ -109,6 +109,7 @@ def signup():
             if user:
                 # Authentication successful
                 session['user'] = user.username
+                session['user_id'] = user.id
                 session['is_admin'] = user.is_admin
                 return redirect(url_for('homepage'))
         except IntegrityError as e:
