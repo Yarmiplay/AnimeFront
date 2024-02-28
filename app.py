@@ -102,7 +102,7 @@ def signup():
         if User.query.filter_by(username=username).first():
             render_template("signup.html", user=user, is_admin=is_admin, user_exists_error=True)
         try: 
-            db.session.add(profile) # Should fail if unique constraint exists on User, but I failed to get it to work
+            db.session.add(profile) # Should fail if unique constraint exists on User
             db.session.commit()
             # Also log in as this user right away
             user = User.query.filter_by(username=username, password=password).first()
