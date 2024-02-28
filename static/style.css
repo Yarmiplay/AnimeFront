@@ -37,11 +37,6 @@ button, input[type="button"], input[type="submit"], input[type="reset"] {
     border-radius: 4px;
 }
 
-/* Images */
-img {
-    filter: brightness(75%);
-}
-
 /* Inputs and Labels text color*/
 input, textarea, select, label {
     color: #fff;

@@ -13,7 +13,7 @@
             <a href="{{ url_for('add_anime') }}">Add Anime</a>
         {% endif %}
         <a href="{{ url_for('logout') }}">Logout</a>
-        <label>Welcome, {{ user }}</label>
+        <label id="welcome_user">Welcome, {{ user }}</label>
     {% endif %}
     <label id="anime_name"></label>
     <form action="{{ url_for('homepage') }}" method="get" class="search-form" id="searchForm">
